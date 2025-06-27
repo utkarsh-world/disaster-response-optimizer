@@ -1,0 +1,28 @@
+# DATA FILES
+data/*.csv
+data/*.zip
+data/*.json
+data/raw/
+data/external/
+
+# PYTHON & JUPYTER
+*.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# VIRTUAL ENVIRONMENTS
+.venv/
+env/
+venv/
+
+# OS/EDITOR NOISE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# SECRETS
+.env
+*.key
+*.pem
