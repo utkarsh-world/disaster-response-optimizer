@@ -17,7 +17,7 @@ def load_data():
     df = pd.read_csv('data/clean/flood_cleaned.csv')
     df['start_date'] = pd.to_datetime(df['start_date'], errors='coerce')
     df['year'] = df['start_date'].dt.year
-    df['human_fatality_filled'] = df['total_deaths'].fillna(0).astype(int)
+    df['human_fatality_filled'] = df['human_fatality'].fillna(0).astype(int)
     return df
 
 df = load_data()
