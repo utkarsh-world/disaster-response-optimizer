@@ -1,4 +1,4 @@
-![Disaster Dashboard Preview](banner.png)
+![Dashboard Preview](banner.png)
 # 🌊 Disaster Response Optimizer (India Flood Analysis)
 
 Hi! I'm Utkarsh Sharma, and this is a data analysis project I built to explore real-world flood events across India.  
