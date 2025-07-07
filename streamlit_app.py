@@ -15,20 +15,57 @@ st.set_page_config(
 )
 
 # ---------- Load data ----------
-@st.cache_data
-def load_data(path: str) -> pd.DataFrame:
-    df = pd.read_csv(path)
-    df["start_date"] = pd.to_datetime(df["start_date"], errors="coerce")
-    df["year"] = df["start_date"].dt.year
-    df["human_fatality_filled"] = df["human_fatality"].fillna(0).astype(int)
-    df["durationdays"] = df["durationdays"].fillna(0)
-    return df.dropna(subset=["year", "state"])
+# ------------------------------------------------------------
 
-DATA_PATH = "data/clean/flood_cleaned.csv"
-df = load_data(DATA_PATH)
+# ------------------------------------------------------------
+# Unified data‑loading helper
+# ------------------------------------------------------------
+@st.cache_data
+def load_data(selected_country: str) -> pd.DataFrame:
+    """Return the cleaned flood dataframe for India or Japan."""
+    if selected_country == "India":
+        path = "data/clean/flood_cleaned.csv"
+    else:
+        path = "data/clean/japan_floods_cleaned.csv"
+
+    df = pd.read_csv(path)
+
+    # Extra cleanup if Japan selected (India file is already numeric)
+    if selected_country == "Japan":
+        df["human_fatality"] = (
+            pd.to_numeric(df["human_fatality"], errors="coerce")
+              .fillna(0)
+              .astype(int)
+        )
+
+    # Make sure 'year' column exists for plotting
+    if "year" not in df.columns:
+        df["year"] = pd.to_datetime(df["start_date"]).dt.year
+
+    return df
+
+# ------------------------------------------------------------
+# Load the dataframe the rest of the app will use
+# ------------------------------------------------------------
+# Country selector (put this near your existing sidebar code)
+# ------------------------------------------------------------
+country = st.sidebar.radio(
+    "Select Country",
+    ("India", "Japan"),
+    horizontal=True
+)
+
+df = load_data(country)
 
 # ---------- Sidebar filters ----------
 st.sidebar.header("🧰 Filters（フィルター）")
+# Country selector
+country = st.sidebar.radio(
+    "Select Country:",
+    ("India", "Japan"),
+    horizontal=True
+)
+
 
 # Year range slider
 min_year, max_year = int(df["year"].min()), int(df["year"].max())
