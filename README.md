@@ -47,10 +47,21 @@ Soon I’ll be turning this into an interactive dashboard using **Streamlit**!
 ```bash
 disaster-response-optimizer/
 ├── data/
-│   ├── raw/              # Original downloaded CSV
-│   └── clean/            # Cleaned version used in analysis
+│   ├── raw/
+│   │   ├── india_floods_raw.csv
+│   │   └── japan_floods_raw.csv
+│   └── clean/
+│       ├── flood_cleaned.csv              # India 1967‑2023
+│       └── japan_floods_cleaned.csv       # Japan 1967‑2023
+│
 ├── notebooks/
-│   ├── 01_data_loading.ipynb
-│   └── 02_eda_overview.ipynb
+│   ├── 01_data_loading.ipynb              # India raw load
+│   ├── 02_eda_india.ipynb                 # India EDA
+│   ├── 03_japan_data_loading.ipynb        # Japan raw load
+│   └── 04_eda_japan.ipynb                 # Japan EDA
+│
+├── streamlit_app.py                       # Unified bilingual dashboard
+├── requirements.txt
+├── banner.png
 ├── .gitignore
 └── README.md
