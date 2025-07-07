@@ -12,6 +12,22 @@ This project was built using:
 
 ---
 
+## 🌏 Supported Datasets
+
+| Country | Years | Source | Clean file |
+|---------|-------|--------|-----------|
+| 🇮🇳 **India** | 1967 – 2023 | India Flood Inventory v3 | `data/clean/flood_cleaned.csv` |
+| 🇯🇵 **Japan** | 1967 – 2023 | EM‑DAT “Flood” subset | `data/clean/japan_floods_cleaned.csv` |
+
+### What’s new (July 2025)
+- **🔄 Country toggle** in the Streamlit app (India / Japan)
+- New notebook `04_eda_japan.ipynb` for Japan EDA
+- Dashboard titles & filters update automatically when you switch countries
+
+> **Live Demo:**  
+> https://utkarsh-world-disaster-response-optimizer.streamlit.app
+
+
 ## 🧪 What This Project Does
 
 ✔️ Cleans real flood event data from India (1967–2023)  
