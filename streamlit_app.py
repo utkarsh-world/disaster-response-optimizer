@@ -224,6 +224,21 @@ ax5.set_ylabel("Prefecture")
 plt.tight_layout()
 st.pyplot(fig4)
 
+# 📊 Compare Human Fatalities Over Time / 死亡者数の年別推移（日本 vs インド）
+st.markdown("### 📊 Compare Human Fatalities Over Time / 死亡者数の年別推移（日本 vs インド）")
+
+comparison_df = pd.read_csv("data/clean/combined_floods.csv")
+comparison_df["year"] = pd.to_datetime(comparison_df["start_date"], errors="coerce").dt.year
+comparison_df_grouped = comparison_df.groupby(["year", "country"])["human_fatality"].sum().reset_index()
+
+fig, ax = plt.subplots(figsize=(10, 4))
+sns.lineplot(data=comparison_df_grouped, x="year", y="human_fatality", hue="country", marker="o", ax=ax)
+ax.set_title("Yearly Fatalities by Country / 国別・年別の死亡者数", fontsize=14)
+ax.set_xlabel("Year / 年")
+ax.set_ylabel("Fatalities / 死亡者数")
+plt.grid(True)
+st.pyplot(fig)
+
 # ------------------------------------------------------------
 # Footer
 # ------------------------------------------------------------
