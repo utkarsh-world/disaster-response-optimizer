@@ -4,12 +4,13 @@
 # English + 日本語 labels
 # ============================================================
 
-import warnings, os
+import warnings
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import matplotlib as mpl
+from relief_optimizer import allocate_relief
 
 # ── Suppress font spam ───────────────────────────────────────
 warnings.filterwarnings("ignore", category=UserWarning, module="matplotlib")
@@ -18,11 +19,11 @@ mpl.font_manager._log.setLevel("ERROR")
 # ---------- Page config ----------
 st.set_page_config(
     page_title="Disaster Response Optimizer",
-    page_icon="🌊",
+    page_icon=" ",
     layout="wide"
 )
 
-st.title("🌊 Disaster Response Optimizer")
+st.title("Disaster Response Optimizer")
 st.markdown("Flood data insights for **India** and **Japan** (1967–2023)")
 
 # ============================================================
@@ -30,15 +31,15 @@ st.markdown("Flood data insights for **India** and **Japan** (1967–2023)")
 # ============================================================
 st.sidebar.header("🧰 Filters（フィルター）")
 
-# View‑mode selector
+# View-mode selector
 view_mode = st.sidebar.radio(
     "View Mode / 表示モード",
-    ("Single Country / 単一国", "Compare India vs Japan / 比較"),
+    ("Single Country / 単一国", "Compare India vs Japan / 比較"),
     index=0
 )
 
 # ------------------------------------------------------------
-# SINGLE‑COUNTRY MODE
+# SINGLE-COUNTRY MODE
 # ------------------------------------------------------------
 if view_mode.startswith("Single"):
 
@@ -108,7 +109,7 @@ if view_mode.startswith("Single"):
         mime="text/csv"
     )
 
-    # ---------- Charts (single‑country) ----------
+    # ---------- Charts (single-country) ----------
     st.subheader(f"📈 Flood Events per Year / 年別洪水件数 – {country}")
     yearly_counts = (
         filtered_df["year"]
@@ -123,7 +124,7 @@ if view_mode.startswith("Single"):
     ax1.grid(alpha=0.3, linestyle="--")
     st.pyplot(fig1)
 
-    st.subheader(f"🏆 Top 10 Regions / 洪水が多い地域 – {country}")
+    st.subheader(f"🏆 Top 10 Regions / 洪水が多い地域 – {country}")
     top_regions = (
         filtered_df["state"]
         .value_counts()
@@ -154,6 +155,72 @@ if view_mode.startswith("Single"):
         st.dataframe(deadliest, use_container_width=True)
     else:
         st.info("Fatality data not available for this dataset.")
+
+    # ----------------- Relief Optimizer (India only) -----------------
+    if country == "India":
+        st.sidebar.markdown("---")
+        st.sidebar.subheader("🚑 Relief Optimizer（救援最適化）")
+
+        enable_optimizer = st.sidebar.checkbox("Run Relief Optimizer / 救援割当を実行", value=False)
+
+        if enable_optimizer:
+            optimizer_years = st.sidebar.slider(
+                "Select Year Range / 年を選択",
+                min_y, max_y,
+                (max_y - 4, max_y),
+                step=1
+            )
+            total_resources = st.sidebar.number_input(
+                "Total Relief Units（総資源数）",
+                min_value=100,
+                max_value=20000,
+                value=7800,
+                step=100
+            )
+
+            st.subheader("🚑 Relief Allocation Results / 救援割当結果")
+
+            allocation = allocate_relief(df, optimizer_years[0], optimizer_years[1], total_resources)
+
+            if allocation.empty:
+                st.warning("⚠️ No data available for the selected range / データがありません")
+            else:
+                total_need = allocation["need_units"].sum()
+                total_allocated = allocation["allocated_units"].sum()
+                overall_coverage = round(total_allocated / total_need * 100, 1) if total_need > 0 else 0
+
+                # Summary bilingual
+                st.markdown(f"""
+                **Years / 年:** {optimizer_years[0]} – {optimizer_years[1]}  
+                **Total Need（必要資源数）:** {total_need}  
+                **Allocated（配分済み）:** {total_allocated}  
+                **Coverage（カバー率）:** {overall_coverage}%
+                """)
+
+                st.write("### 🔻 Lowest Coverage States / カバー率が低い地域")
+                st.dataframe(allocation.head(10), use_container_width=True)
+
+                # Download button
+                csv_path = f"relief_allocation_{optimizer_years[0]}_{optimizer_years[1]}.csv"
+                st.download_button(
+                    "⬇️ Download Allocation CSV / 割当CSVダウンロード",
+                    data=allocation.to_csv(index=False).encode(),
+                    file_name=csv_path,
+                    mime="text/csv"
+                )
+
+                # Bar chart allocation vs need
+                st.write("### 📉 Allocation vs Need / 割当と必要度の比較")
+                top_alloc = allocation.sort_values("need_units", ascending=False).head(15)
+                fig, ax = plt.subplots(figsize=(10, 6))
+                ax.bar(top_alloc["state"], top_alloc["need_units"], label="Need / 必要", alpha=0.7, color="indianred")
+                ax.bar(top_alloc["state"], top_alloc["allocated_units"], label="Allocated / 割当", alpha=0.7, color="steelblue")
+                ax.set_xlabel("State / 州")
+                ax.set_ylabel("Units / ユニット")
+                ax.set_title("Relief Allocation vs Need / 救援配分と必要度")
+                ax.legend()
+                plt.xticks(rotation=45, ha="right")
+                st.pyplot(fig)
 
     st.stop()   # prevent Compare code from running below
 
@@ -201,7 +268,7 @@ ax3.grid(alpha=0.3, linestyle="--")
 st.pyplot(fig3)
 
 # ---------- Top 10 regions for each country ----------
-st.subheader("Top 10 Flood‑Prone Regions by Country / 国別上位10地域")
+st.subheader("Top 10 Flood-Prone Regions by Country / 国別上位10地域")
 
 top_india = (
     df_india["state"].value_counts().head(10).sort_values(ascending=True)
@@ -223,8 +290,9 @@ ax5.set_ylabel("Prefecture")
 
 plt.tight_layout()
 st.pyplot(fig4)
+
 # ------------------------------------------------------------
 # Footer
 # ------------------------------------------------------------
 st.markdown("---")
-st.markdown("Data sources: India Flood Inventory v3, EM‑DAT Japan subset  |  © 2025 Utkarsh Sharma")
+st.markdown("Data sources: India Flood Inventory v3, EM-DAT Japan subset  |  © 2025 Utkarsh Sharma")

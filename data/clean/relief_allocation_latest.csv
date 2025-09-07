@@ -1,0 +1,62 @@
+state,impact_score,allocated,percent
+Andaman & Nicobar Islands,0.0,0.0,0.0
+Andhra Pradesh,1649.0,48.0,4.8
+"Andhra Pradesh, Telangana",66.0,2.0,0.2
+Arunachal Pradesh,255.0,7.0,0.7
+Assam,2008.0,58.0,5.8
+"Assam, Manipur, Tripura,  Arunachal Pradesh",0.0,0.0,0.0
+"Assam, Odisha, West Bengal, Bihar",0.0,0.0,0.0
+Bihar,1745.0,51.0,5.1
+Bihar ,215.0,6.0,0.6
+"Bihar, Jharkhand",158.0,5.0,0.5
+"Bihar, Odisha, West Bengal, Assam, Andhra Pradesh",77.0,2.0,0.2
+"Bihar, West Bengal",0.0,0.0,0.0
+Chandigarh ,4.0,0.0,0.0
+Chhattisgarh,38.0,1.0,0.1
+Delhi,61.0,2.0,0.2
+Goa,6.0,0.0,0.0
+"Goa, Daman & Diu",5.0,0.0,0.0
+"Goa, Daman,Diu",0.0,0.0,0.0
+Gujarat,3664.0,106.0,10.6
+Haryana,326.0,9.0,0.9
+Haryana ,33.0,1.0,0.1
+Himachal Pradesh,865.0,25.0,2.5
+"Himachal Pradesh, Uttar Pradesh",0.0,0.0,0.0
+Jammu & Kashmir,62.0,2.0,0.2
+Jammu and Kashmir,1078.0,31.0,3.1
+"Jammu and Kashmir, Delhi, Punjab",0.0,0.0,0.0
+"Jammu and Kashmir, Punjab, Uttar Pradesh, Assam,  Arunachal Pradesh ",268.0,8.0,0.8
+Jharkhand,88.0,3.0,0.3
+Karnataka,1487.0,43.0,4.3
+Kerala,1483.0,43.0,4.3
+"Kerala, Rajasthan, Haryana, Uttar Pradesh, Bihar",0.0,0.0,0.0
+Ladakh,5.0,0.0,0.0
+Madhya Pradesh,418.0,12.0,1.2
+"Madhya Pradesh,  Chhattisgarh",100.0,3.0,0.3
+"Madhya Pradesh, Punjab, Haryana, West Bengal",0.0,0.0,0.0
+Maharashtra,2667.0,77.0,7.7
+Manipur,17.0,0.0,0.0
+Meghalaya,44.0,1.0,0.1
+Mizoram,159.0,5.0,0.5
+Nagaland,21.0,1.0,0.1
+Odisha,910.0,26.0,2.6
+"Odisha, Bihar, Assam, West Bengal",90.0,3.0,0.3
+"Odisha, Bihar, Uttar Pradesh, Madhya Pradesh, Rajasthan, Haryana",0.0,0.0,0.0
+Puducherry,2.0,0.0,0.0
+Punjab,660.0,19.0,1.9
+Rajasthan,1034.0,30.0,3.0
+"Rajasthan, Bihar, Madhya Pradesh, Gujarat, Maharashtra, Uttar Pradesh",90.0,3.0,0.3
+Sikkim,311.0,9.0,0.9
+Tamil Nadu,1337.0,39.0,3.9
+Telangana,166.0,5.0,0.5
+Tripura,106.0,3.0,0.3
+Uttar Pradesh,5655.0,164.0,16.4
+"Uttar Pradesh , Assam , Bihar , West Bengal, Kerala",0.0,0.0,0.0
+"Uttar Pradesh, Bihar",145.0,4.0,0.4
+"Uttar Pradesh, Bihar,  Assam",0.0,0.0,0.0
+"Uttar Pradesh, Bihar, Odisha, West Bengal",1025.0,30.0,3.0
+"Uttar Pradesh, Uttarakhand",1795.0,52.0,5.2
+"Uttar Pradesh, West Bengal, Bihar",0.0,0.0,0.0
+Uttarakhand,396.0,11.0,1.1
+West Bengal,1747.0,51.0,5.1
+West Bengal ,0.0,0.0,0.0
