@@ -81,3 +81,36 @@ METI Japan Internship for the motivation
 Pull requests are welcome! For major changes, open an issue first to discuss what you would like to change.
 
 
+
+# 🌊 Disaster Response Optimizer 2.0
+
+**Bilingual (English + 日本語)** — Flood analytics and resource allocation for India & Japan (1967–2023)
+
+---
+
+## 🔑 What’s new in 2.0 / 2.0 の新機能
+- Modular allocation logic: `relief_optimizer.py` (single source of truth)  
+- Bilingual reporting in the Streamlit UI and CSV exports (English + 日本語)  
+- Cleaner Streamlit integration with new allocation visualization and CSV download
+
+---
+
+## 📂 Files / ファイル
+- `streamlit_app.py` — Interactive bilingual dashboard (Streamlit)  
+- `relief_optimizer.py` — Core allocation logic (functions used by CLI + Streamlit)  
+- `relief_optimizer_test.py` — CLI tester to run allocation locally  
+- `data/clean/...` — Cleaned datasets and generated allocations CSVs  
+- `docs/Disaster_Response_Optimizer_Presentation.pdf` — Presentation (if present)
+
+---
+
+## ⚙️ How to run / 実行方法
+
+### Local (dev)
+```bash
+# 1. create and activate venv (optional but recommended)
+python -m venv .venv
+.venv\Scripts\activate         # Windows PowerShell
+# or: source .venv/bin/activate  # macOS / Linux
+
+pip install -r requirements.txt
